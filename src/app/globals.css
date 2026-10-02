@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design Tokens */
+/* Light Theme */
 :root {
   /* Colors */
   --color-background: #FAF8F3;
@@ -53,6 +53,27 @@
   --transition-fast: 150ms ease;
   --transition-base: 200ms ease;
   --transition-slow: 300ms ease;
+}
+
+/* Dark Theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Colors - Dark */
+    --color-background: #1a1814;
+    --color-surface: #2d2824;
+    --color-surface-secondary: #3d3830;
+    --color-primary: #d4905f;
+    --color-primary-hover: #e5a170;
+    --color-text-primary: #f5f1e8;
+    --color-text-secondary: #b8a89f;
+    --color-border: #4a4239;
+    --color-success: #8fb388;
+    --color-warning: #e6bf7f;
+    --color-danger: #d4745f;
+
+    --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.5);
+  }
 }
 
 * {
