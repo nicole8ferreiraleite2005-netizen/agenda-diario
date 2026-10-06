@@ -2,7 +2,7 @@ import React from 'react'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'danger' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
   isLoading?: boolean
   children: React.ReactNode
 }
@@ -26,9 +26,10 @@ export function Button({
   }
 
   const sizeStyles = {
-    sm: 'px-3 py-2 text-sm',
-    md: 'px-4 py-2.5 text-base',
-    lg: 'px-5 py-3 text-lg',
+    xs: 'px-2 py-1.5 text-xs min-h-[32px]',
+    sm: 'px-3 py-2 text-sm min-h-[40px]',
+    md: 'px-4 py-2.5 text-base min-h-[44px]',
+    lg: 'px-5 py-3 text-lg min-h-[48px]',
   }
 
   return (

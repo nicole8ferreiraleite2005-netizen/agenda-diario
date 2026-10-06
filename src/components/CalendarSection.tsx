@@ -68,20 +68,20 @@ export const CalendarSection = memo(function CalendarSection() {
   }
 
   return (
-    <div className="p-6 h-full flex flex-col gap-4 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50">
+    <div className="p-3 sm:p-4 md:p-6 h-full flex flex-col gap-3 sm:gap-4 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-800">📅 Calendário</h1>
-        <p className="text-sm text-gray-600 mt-1">Organize suas atividades ao longo do tempo</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">📅 Calendário</h1>
+        <p className="text-xs sm:text-sm text-gray-600 mt-1">Organize suas atividades ao longo do tempo</p>
       </div>
 
       {/* View Mode Selector */}
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-1 sm:gap-2 flex-wrap">
         {(['day', 'week', 'month', 'year'] as const).map((mode) => (
           <button
             key={mode}
             onClick={() => setViewMode(mode)}
-            className={`px-4 py-2 rounded-lg font-medium text-sm transition ${
+            className={`px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg font-medium text-xs sm:text-sm transition min-h-[36px] sm:min-h-[40px] ${
               viewMode === mode
                 ? 'bg-gradient-to-r from-orange-400 to-rose-400 text-white shadow-lg'
                 : 'bg-white/60 text-gray-700 hover:bg-white border border-orange-200'

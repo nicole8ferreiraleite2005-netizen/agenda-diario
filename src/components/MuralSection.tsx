@@ -12,7 +12,7 @@ export const MuralSection = memo(function MuralSection() {
   )
 
   return (
-    <div className="p-6 h-full flex flex-col gap-6 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-y-auto">
+    <div className="p-3 sm:p-4 md:p-6 h-full flex flex-col gap-4 sm:gap-6 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-y-auto">
       <style>{`
         @keyframes zoomIn {
           from {
@@ -31,8 +31,8 @@ export const MuralSection = memo(function MuralSection() {
       `}</style>
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-800">🖼️ Mural de Realizações</h1>
-        <p className="text-sm text-gray-600 mt-1">Celebre suas tarefas completas com evidências visuais</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">🖼️ Mural de Realizações</h1>
+        <p className="text-xs sm:text-sm text-gray-600 mt-1">Celebre suas tarefas completas com evidências visuais</p>
       </div>
 
       {loading ? (

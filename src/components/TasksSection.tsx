@@ -71,7 +71,7 @@ export const TasksSection = memo(function TasksSection() {
   }, [completingTask, updateTask])
 
   return (
-    <div className="p-6 h-full flex flex-col gap-6 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-y-auto">
+    <div className="p-3 sm:p-4 md:p-6 h-full flex flex-col gap-4 sm:gap-6 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-y-auto">
       <style>{`
         @keyframes fadeInUp {
           from {
@@ -90,8 +90,8 @@ export const TasksSection = memo(function TasksSection() {
       `}</style>
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-800">📝 Tarefas</h1>
-        <p className="text-sm text-gray-600 mt-1">Organize seu dia produtivamente</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">📝 Tarefas</h1>
+        <p className="text-xs sm:text-sm text-gray-600 mt-1">Organize seu dia produtivamente</p>
       </div>
 
       {completingTask && (
@@ -104,30 +104,30 @@ export const TasksSection = memo(function TasksSection() {
       )}
 
       {/* Date Selector */}
-      <div className="bg-white/80 backdrop-blur rounded-2xl p-4 border border-orange-200 shadow-sm">
-        <div className="flex justify-between items-center gap-2 mb-4">
+      <div className="bg-white/80 backdrop-blur rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-orange-200 shadow-sm">
+        <div className="flex justify-between items-center gap-1 sm:gap-2 mb-3 sm:mb-4 flex-wrap">
           <button
             onClick={goToPreviousDay}
-            className="px-3 py-2 bg-orange-100 hover:bg-orange-200 rounded-lg text-sm font-medium transition text-gray-800"
+            className="px-2 sm:px-3 py-1.5 sm:py-2 bg-orange-100 hover:bg-orange-200 rounded-lg text-xs sm:text-sm font-medium transition text-gray-800 min-h-[36px] sm:min-h-[40px]"
           >
             ← Ant
           </button>
           <button
             onClick={goToToday}
-            className="px-4 py-2 bg-gradient-to-r from-orange-400 to-rose-400 text-white rounded-lg text-sm font-medium hover:shadow-lg transition"
+            className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-orange-400 to-rose-400 text-white rounded-lg text-xs sm:text-sm font-medium hover:shadow-lg transition min-h-[36px] sm:min-h-[40px]"
           >
             Hoje
           </button>
           <button
             onClick={goToNextDay}
-            className="px-3 py-2 bg-orange-100 hover:bg-orange-200 rounded-lg text-sm font-medium transition text-gray-800"
+            className="px-2 sm:px-3 py-1.5 sm:py-2 bg-orange-100 hover:bg-orange-200 rounded-lg text-xs sm:text-sm font-medium transition text-gray-800 min-h-[36px] sm:min-h-[40px]"
           >
             Prox →
           </button>
         </div>
 
         <div className="text-center">
-          <p className="font-bold text-lg text-gray-800 capitalize">{dayName}</p>
+          <p className="font-bold text-base sm:text-lg text-gray-800 capitalize">{dayName}</p>
           <p className="text-xs text-gray-500 mt-1">
             {dayTasks.length} {dayTasks.length === 1 ? 'tarefa' : 'tarefas'}
           </p>
@@ -150,21 +150,21 @@ export const TasksSection = memo(function TasksSection() {
 
       {/* Tasks List */}
       <div>
-        <h2 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
+        <h2 className="text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3 uppercase tracking-wide">
           Tarefas do Dia ({dayTasks.length})
         </h2>
 
         {dayTasks.length === 0 ? (
-          <div className="bg-white/60 backdrop-blur rounded-xl p-8 border border-orange-200 text-center">
+          <div className="bg-white/60 backdrop-blur rounded-lg sm:rounded-xl p-6 sm:p-8 border border-orange-200 text-center">
             <p className="text-gray-600 text-sm">Nenhuma tarefa para hoje</p>
             <p className="text-xs text-gray-400 mt-2">Crie uma nova tarefa acima para começar</p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {dayTasks.map((task, index) => (
               <div
                 key={task.id}
-                className="bg-white/80 backdrop-blur rounded-xl p-4 border border-orange-200 hover:shadow-md transition group task-card"
+                className="bg-white/80 backdrop-blur rounded-lg sm:rounded-xl p-3 sm:p-4 border border-orange-200 hover:shadow-md transition group task-card"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="flex items-start gap-3">
