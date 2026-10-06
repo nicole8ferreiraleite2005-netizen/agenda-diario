@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, memo } from 'react'
 import { Card } from '@/components/ui/Card'
 
 interface TaskCardProps {
@@ -111,4 +111,4 @@ function TaskCardComponent({
   )
 }
 
-export const TaskCard = React.memo(TaskCardComponent)
+export const TaskCard = memo(TaskCardComponent)
