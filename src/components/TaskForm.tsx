@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Edit, Plus } from 'lucide-react'
 import { Task } from '@/lib/supabase'
 import { useToast } from '@/hooks/useToast'
 
@@ -66,9 +67,19 @@ export function TaskForm({ initialDate, onSubmit, onCancel, editing }: TaskFormP
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-xl font-bold text-gray-900 mb-4">
-        {editing ? '✏️ Editar Tarefa' : '➕ Nova Tarefa'}
-      </h2>
+      <div className="flex items-center gap-2 mb-4">
+        {editing ? (
+          <>
+            <Edit className="w-5 h-5 text-blue-600" />
+            <h2 className="text-xl font-bold text-gray-900">Editar Tarefa</h2>
+          </>
+        ) : (
+          <>
+            <Plus className="w-5 h-5 text-green-600" />
+            <h2 className="text-xl font-bold text-gray-900">Nova Tarefa</h2>
+          </>
+        )}
+      </div>
 
       <div className="space-y-4">
         <div>
@@ -126,9 +137,9 @@ export function TaskForm({ initialDate, onSubmit, onCancel, editing }: TaskFormP
               onChange={(e) => setPriority(e.target.value as any)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
             >
-              <option value="low">🟢 Baixa</option>
-              <option value="medium">🟡 Média</option>
-              <option value="high">🔴 Alta</option>
+              <option value="low">Baixa</option>
+              <option value="medium">Média</option>
+              <option value="high">Alta</option>
             </select>
           </div>
 
@@ -140,9 +151,9 @@ export function TaskForm({ initialDate, onSubmit, onCancel, editing }: TaskFormP
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
             >
               <option value="none">Nenhuma</option>
-              <option value="daily">📅 Diária</option>
-              <option value="weekly">📆 Semanal</option>
-              <option value="monthly">📊 Mensal</option>
+              <option value="daily">Diária</option>
+              <option value="weekly">Semanal</option>
+              <option value="monthly">Mensal</option>
             </select>
           </div>
         </div>
