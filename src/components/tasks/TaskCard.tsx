@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import { useMemo } from 'react'
 import { Card } from '@/components/ui/Card'
 
 interface TaskCardProps {
@@ -16,7 +16,7 @@ interface TaskCardProps {
   onToggleComplete: (completed: boolean) => void
 }
 
-export function TaskCard({
+function TaskCardComponent({
   id,
   title,
   description,
@@ -30,8 +30,8 @@ export function TaskCard({
 }: TaskCardProps) {
   const isCompleted = status === 'completed'
 
-  const getPriorityColor = (pri?: string) => {
-    switch (pri) {
+  const priorityColor = useMemo(() => {
+    switch (priority) {
       case 'high':
         return 'text-danger'
       case 'medium':
@@ -39,18 +39,18 @@ export function TaskCard({
       default:
         return 'text-success'
     }
-  }
+  }, [priority])
 
-  const getPriorityLabel = (pri?: string) => {
-    switch (pri) {
+  const priorityLabel = useMemo(() => {
+    switch (priority) {
       case 'high':
-        return '🔴 Alta'
+        return 'Alta'
       case 'medium':
-        return '🟡 Média'
+        return 'Média'
       default:
-        return '🟢 Baixa'
+        return 'Baixa'
     }
-  }
+  }, [priority])
 
   return (
     <Card className="p-4 hover:shadow-hover transition-shadow group">
@@ -76,32 +76,32 @@ export function TaskCard({
           )}
 
           <div className="flex items-center gap-3 text-xs text-text-secondary flex-wrap">
-            <span>📅 {new Date(due_date).toLocaleDateString('pt-BR')}</span>
-            {due_time && <span>🕐 {due_time}</span>}
+            <span>{new Date(due_date).toLocaleDateString('pt-BR')}</span>
+            {due_time && <span>{due_time}</span>}
           </div>
         </div>
 
         {/* Priority + Actions */}
         <div className="flex items-center gap-2 flex-shrink-0">
-          <span className={`text-xs font-medium whitespace-nowrap ${getPriorityColor(priority)}`}>
-            {getPriorityLabel(priority)}
+          <span className={`text-xs font-medium whitespace-nowrap ${priorityColor}`}>
+            {priorityLabel}
           </span>
 
           {!isCompleted && (
             <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
               <button
                 onClick={onEdit}
-                className="p-1.5 hover:bg-surface-secondary rounded transition text-text-secondary hover:text-primary"
+                className="p-1.5 hover:bg-surface-secondary rounded transition text-text-secondary hover:text-primary text-xs font-semibold"
                 title="Editar"
               >
-                ✏️
+                Edit
               </button>
               <button
                 onClick={onDelete}
-                className="p-1.5 hover:bg-surface-secondary rounded transition text-text-secondary hover:text-danger"
+                className="p-1.5 hover:bg-surface-secondary rounded transition text-text-secondary hover:text-danger text-xs font-semibold"
                 title="Deletar"
               >
-                🗑️
+                Del
               </button>
             </div>
           )}
@@ -110,3 +110,5 @@ export function TaskCard({
     </Card>
   )
 }
+
+export const TaskCard = React.memo(TaskCardComponent)
