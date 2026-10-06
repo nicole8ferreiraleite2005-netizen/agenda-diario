@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { ClipboardList, BarChart3 } from 'lucide-react'
 import { PageHeader, Button } from '@/components/ui'
-import { TaskList } from '@/components/tasks'
 import Link from 'next/link'
+
+const TaskList = lazy(() => import('@/components/tasks/TaskList').then(mod => ({ default: mod.TaskList })))
 
 interface Task {
   id: string
@@ -141,14 +142,16 @@ export default function TarefasPage() {
       {loading ? (
         <div className="text-center py-12 text-text-secondary">Carregando tarefas...</div>
       ) : (
-        <TaskList
-          tasks={tasks}
-          date={selectedDate}
-          onTaskCreate={handleTaskCreate}
-          onTaskUpdate={handleTaskUpdate}
-          onTaskDelete={handleTaskDelete}
-          onTaskToggle={handleTaskToggle}
-        />
+        <Suspense fallback={<div className="text-center py-12 text-text-secondary">Carregando lista de tarefas...</div>}>
+          <TaskList
+            tasks={tasks}
+            date={selectedDate}
+            onTaskCreate={handleTaskCreate}
+            onTaskUpdate={handleTaskUpdate}
+            onTaskDelete={handleTaskDelete}
+            onTaskToggle={handleTaskToggle}
+          />
+        </Suspense>
       )}
     </div>
   )

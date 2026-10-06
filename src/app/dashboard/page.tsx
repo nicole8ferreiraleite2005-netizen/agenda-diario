@@ -1,9 +1,11 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { PageHeader, Button } from '@/components/ui'
-import { DashboardSummaryCard, UpcomingTasksList, MemoryWall } from '@/components/dashboard'
+import { DashboardSummaryCard, UpcomingTasksList } from '@/components/dashboard'
 import Link from 'next/link'
+
+const MemoryWall = lazy(() => import('@/components/dashboard/MemoryWall').then(mod => ({ default: mod.MemoryWall })))
 
 interface Stats {
   pending: number
@@ -136,7 +138,9 @@ export default function DashboardPage() {
         {loading ? (
           <div className="text-center py-8 text-text-secondary">Carregando...</div>
         ) : (
-          <MemoryWall />
+          <Suspense fallback={<div className="text-center py-8 text-text-secondary">Carregando mural...</div>}>
+            <MemoryWall />
+          </Suspense>
         )}
       </div>
     </div>
