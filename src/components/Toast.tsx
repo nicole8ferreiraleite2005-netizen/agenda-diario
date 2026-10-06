@@ -1,5 +1,6 @@
 ﻿'use client'
 
+import { CheckCircle, AlertCircle, Info, X } from 'lucide-react'
 import { Toast } from '@/hooks/useToast'
 
 interface ToastContainerProps {
@@ -21,15 +22,19 @@ export function ToastContainer({ toasts, onDismiss }: ToastContainerProps) {
               : 'bg-blue-500'
           }`}
         >
-          <span>
-            {toast.type === 'success' ? '✅' : toast.type === 'error' ? '❌' : 'ℹ️'}
-          </span>
+          {toast.type === 'success' ? (
+            <CheckCircle className="w-5 h-5 flex-shrink-0" />
+          ) : toast.type === 'error' ? (
+            <AlertCircle className="w-5 h-5 flex-shrink-0" />
+          ) : (
+            <Info className="w-5 h-5 flex-shrink-0" />
+          )}
           <span className="flex-1">{toast.message}</span>
           <button
             onClick={() => onDismiss(toast.id)}
-            className="text-white/80 hover:text-white"
+            className="text-white/80 hover:text-white flex-shrink-0"
           >
-            ✕
+            <X className="w-4 h-4" />
           </button>
         </div>
       ))}
