@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Cronograma & Diário',
   description: 'Seu calendário pessoal com lembretes automáticos e diário inteligente',
