@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, memo } from 'react'
+import { useState, useMemo, useCallback, memo } from 'react'
 import { useSupabaseTasks } from '@/hooks/useSupabaseTasks'
 
 export const CalendarSection = memo(function CalendarSection() {
@@ -16,6 +16,23 @@ export const CalendarSection = memo(function CalendarSection() {
     })
     return map
   }, [tasks])
+
+  const handlePreviousMonth = useCallback(() => {
+    setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth() - 1, 1))
+  }, [selectedDate])
+
+  const handleNextMonth = useCallback(() => {
+    setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 1))
+  }, [selectedDate])
+
+  const handleDaySelect = useCallback((day: number) => {
+    setSelectedDate(new Date(selectedYear, selectedDate.getMonth(), day))
+  }, [selectedYear, selectedDate])
+
+  const handleMonthSelect = useCallback((index: number) => {
+    setSelectedDate(new Date(selectedYear, index, 1))
+    setViewMode('month')
+  }, [selectedYear])
 
   const getDaysInMonth = (date: Date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
@@ -109,7 +126,7 @@ export const CalendarSection = memo(function CalendarSection() {
       {viewMode === 'month' && (
         <div className="flex gap-2 items-center bg-white/60 backdrop-blur p-3 rounded-lg border border-orange-200">
           <button
-            onClick={() => setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth() - 1, 1))}
+            onClick={handlePreviousMonth}
             className="p-2 rounded hover:bg-orange-200 transition font-bold"
           >
             ←
@@ -118,7 +135,7 @@ export const CalendarSection = memo(function CalendarSection() {
             {currentMonth} {selectedYear}
           </h2>
           <button
-            onClick={() => setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 1))}
+            onClick={handleNextMonth}
             className="p-2 rounded hover:bg-orange-200 transition font-bold"
           >
             →
@@ -148,7 +165,7 @@ export const CalendarSection = memo(function CalendarSection() {
                 return (
                   <button
                     key={idx}
-                    onClick={() => day && setSelectedDate(new Date(selectedYear, selectedDate.getMonth(), day))}
+                    onClick={() => day && handleDaySelect(day)}
                     className={`p-2 sm:p-3 text-center rounded-lg text-xs sm:text-sm font-medium transition relative ${
                       day === null
                         ? 'bg-gray-50'
@@ -177,10 +194,7 @@ export const CalendarSection = memo(function CalendarSection() {
               {monthNames.map((month, index) => (
                 <button
                   key={month}
-                  onClick={() => {
-                    setSelectedDate(new Date(selectedYear, index, 1))
-                    setViewMode('month')
-                  }}
+                  onClick={() => handleMonthSelect(index)}
                   className="p-4 bg-gradient-to-br from-orange-100 to-rose-100 rounded-lg hover:from-orange-200 hover:to-rose-200 transition font-semibold text-gray-800"
                 >
                   {month}

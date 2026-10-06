@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, memo } from 'react'
+import { useState, useMemo, useCallback, memo } from 'react'
 import { useSelectedDate } from '@/hooks/useSelectedDate'
 import { useSupabaseTasks } from '@/hooks/useSupabaseTasks'
 import { TaskForm } from './TaskForm'
@@ -18,11 +18,57 @@ export const TasksSection = memo(function TasksSection() {
     [tasks, selectedDate]
   )
 
-  const dayName = selectedDate.toLocaleDateString('pt-BR', {
-    weekday: 'long',
-    month: 'short',
-    day: 'numeric',
-  })
+  const dayName = useMemo(
+    () => selectedDate.toLocaleDateString('pt-BR', {
+      weekday: 'long',
+      month: 'short',
+      day: 'numeric',
+    }),
+    [selectedDate]
+  )
+
+  const handleTaskToggle = useCallback(async (task: any, checked: boolean) => {
+    if (checked) {
+      setCompletingTask(task)
+    } else {
+      await updateTask(task.id, {
+        status: 'pending',
+        completed_at: null,
+        mural_image_url: null,
+      })
+    }
+  }, [updateTask])
+
+  const handleEditTask = useCallback((task: any) => {
+    setEditingTask(task)
+  }, [])
+
+  const handleDeleteTask = useCallback(async (task: any) => {
+    if (confirm('Remover tarefa?')) {
+      await deleteTask(task.id)
+    }
+  }, [deleteTask])
+
+  const handleSubmitTask = useCallback(async (taskData: any) => {
+    if (editingTask) {
+      await updateTask(editingTask.id, taskData)
+      setEditingTask(null)
+    } else {
+      await createTask(taskData)
+    }
+  }, [editingTask, updateTask, createTask])
+
+  const handleUploadImage = useCallback(async (imageUrl: string, notes: string) => {
+    if (completingTask) {
+      await updateTask(completingTask.id, {
+        status: 'completed',
+        completed_at: new Date().toISOString(),
+        mural_image_url: imageUrl,
+        mural_notes: notes,
+      })
+      setCompletingTask(null)
+    }
+  }, [completingTask, updateTask])
 
   return (
     <div className="p-6 h-full flex flex-col gap-6 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-y-auto">
@@ -53,15 +99,7 @@ export const TasksSection = memo(function TasksSection() {
           taskId={completingTask.id}
           taskTitle={completingTask.title}
           onClose={() => setCompletingTask(null)}
-          onUpload={async (imageUrl: string, notes: string) => {
-            await updateTask(completingTask.id, {
-              status: 'completed',
-              completed_at: new Date().toISOString(),
-              mural_image_url: imageUrl,
-              mural_notes: notes,
-            })
-            setCompletingTask(null)
-          }}
+          onUpload={handleUploadImage}
         />
       )}
 
@@ -106,14 +144,7 @@ export const TasksSection = memo(function TasksSection() {
       <TaskForm
         initialDate={selectedDate.toISOString().split('T')[0]}
         editing={editingTask}
-        onSubmit={async (taskData) => {
-          if (editingTask) {
-            await updateTask(editingTask.id, taskData)
-            setEditingTask(null)
-          } else {
-            await createTask(taskData)
-          }
-        }}
+        onSubmit={handleSubmitTask}
         onCancel={() => setEditingTask(null)}
       />
 
@@ -141,17 +172,7 @@ export const TasksSection = memo(function TasksSection() {
                   <input
                     type="checkbox"
                     checked={task.status === 'completed'}
-                    onChange={async (e) => {
-                      if (e.target.checked) {
-                        setCompletingTask(task)
-                      } else {
-                        await updateTask(task.id, {
-                          status: 'pending',
-                          completed_at: null,
-                          mural_image_url: null,
-                        })
-                      }
-                    }}
+                    onChange={(e) => handleTaskToggle(task, e.target.checked)}
                     className="w-5 h-5 rounded border-orange-300 text-orange-400 cursor-pointer mt-1 accent-orange-400"
                   />
 
@@ -179,18 +200,14 @@ export const TasksSection = memo(function TasksSection() {
                   {/* Actions */}
                   <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition">
                     <button
-                      onClick={() => setEditingTask(task)}
+                      onClick={() => handleEditTask(task)}
                       className="p-2 hover:bg-orange-100 rounded-lg transition text-gray-600 hover:text-orange-600"
                       title="Editar"
                     >
                       ✏️
                     </button>
                     <button
-                      onClick={async () => {
-                        if (confirm('Remover tarefa?')) {
-                          await deleteTask(task.id)
-                        }
-                      }}
+                      onClick={() => handleDeleteTask(task)}
                       className="p-2 hover:bg-rose-100 rounded-lg transition text-gray-600 hover:text-rose-600"
                       title="Deletar"
                     >
