@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { QueryProvider } from '@/providers/QueryProvider'
 import './globals.css'
+import './accessibility.css'
 
 export const dynamic = 'force-dynamic'
 

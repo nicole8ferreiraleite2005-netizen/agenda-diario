@@ -16,13 +16,13 @@ export function Button({
   className = '',
   ...props
 }: ButtonProps) {
-  const baseStyles = 'font-medium rounded-md transition-all duration-base focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
+  const baseStyles = 'font-medium rounded-md transition-all duration-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95'
 
   const variantStyles = {
-    primary: 'bg-primary text-surface hover:bg-primary-hover focus-visible:outline-primary',
-    secondary: 'bg-surface-secondary text-text-primary border border-border hover:bg-surface-secondary/80 focus-visible:outline-primary',
-    danger: 'bg-danger text-surface hover:bg-red-600 focus-visible:outline-danger',
-    ghost: 'text-primary hover:bg-surface-secondary focus-visible:outline-primary',
+    primary: 'bg-primary text-surface hover:bg-primary-hover dark:bg-blue-600 dark:hover:bg-blue-700',
+    secondary: 'bg-surface-secondary text-text-primary border border-border hover:bg-surface-secondary/80 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600',
+    danger: 'bg-danger text-surface hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-800',
+    ghost: 'text-primary hover:bg-surface-secondary dark:text-blue-400 dark:hover:bg-gray-700',
   }
 
   const sizeStyles = {
