@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { Calendar, Lock, LogOut, ClipboardList, Image as ImageIcon } from 'lucide-react'
 import { Carousel } from '@/components/Carousel'
 import { TasksSection } from '@/components/TasksSection'
 import { MuralSection } from '@/components/MuralSection'
@@ -52,7 +53,10 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-2xl p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">📅 Cronograma & Diário</h1>
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <Calendar className="w-8 h-8 text-blue-600" />
+          <h1 className="text-3xl font-bold text-gray-900">Cronograma & Diário</h1>
+        </div>
         <p className="text-gray-600 text-center mb-8">Seu calendário pessoal com lembretes automáticos</p>
 
         <form onSubmit={handleLogin} className="space-y-6">
@@ -84,9 +88,10 @@ export default function Home() {
           </button>
         </form>
 
-        <p className="text-center text-gray-600 text-sm mt-6">
-          🔒 Senha padrão: <code className="bg-gray-100 px-2 py-1 rounded">agenda123</code>
-        </p>
+        <div className="flex items-center justify-center gap-2 text-gray-600 text-sm mt-6">
+          <Lock className="w-4 h-4" />
+          <span>Senha padrão: <code className="bg-gray-100 px-2 py-1 rounded">agenda123</code></span>
+        </div>
       </div>
     </main>
   )
@@ -109,8 +114,8 @@ function HomePage() {
         {/* Logo/Header com Logout */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-rose-400 flex items-center justify-center text-white font-bold">
-              📅
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-rose-400 flex items-center justify-center text-white">
+              <Calendar className="w-5 h-5" />
             </div>
             <h1 className="text-xl font-bold text-gray-800">Agenda</h1>
           </div>
@@ -119,7 +124,7 @@ function HomePage() {
             className="text-gray-600 hover:text-gray-800 transition"
             title="Logout"
           >
-            🚪
+            <LogOut className="w-5 h-5" />
           </button>
         </div>
 
@@ -142,15 +147,15 @@ function HomePage() {
           <h2 className="text-sm font-semibold text-gray-700 mb-3">Atividades</h2>
           <div className="space-y-2">
             <div className="flex items-center gap-2 p-3 bg-orange-100/50 rounded-lg hover:bg-orange-100 transition cursor-pointer">
-              <span className="text-lg">📝</span>
+              <ClipboardList className="w-5 h-5 text-orange-600" />
               <span className="text-sm text-gray-700">Tarefas do dia</span>
             </div>
             <div className="flex items-center gap-2 p-3 bg-amber-100/50 rounded-lg hover:bg-amber-100 transition cursor-pointer">
-              <span className="text-lg">🖼️</span>
+              <ImageIcon className="w-5 h-5 text-amber-600" />
               <span className="text-sm text-gray-700">Mural</span>
             </div>
             <div className="flex items-center gap-2 p-3 bg-rose-100/50 rounded-lg hover:bg-rose-100 transition cursor-pointer">
-              <span className="text-lg">📅</span>
+              <Calendar className="w-5 h-5 text-rose-600" />
               <span className="text-sm text-gray-700">Calendário</span>
             </div>
           </div>
@@ -171,33 +176,36 @@ function HomePage() {
         <div className="md:hidden flex gap-2 justify-center p-4 bg-white/80 backdrop-blur border-b border-orange-200">
           <button
             onClick={() => goToSection('tasks')}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+            className={`px-4 py-2 rounded-full text-sm font-medium transition flex items-center gap-2 ${
               activeSection === 'tasks'
                 ? 'bg-orange-400 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
-            📝
+            <ClipboardList className="w-4 h-4" />
+            Tarefas
           </button>
           <button
             onClick={() => goToSection('mural')}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+            className={`px-4 py-2 rounded-full text-sm font-medium transition flex items-center gap-2 ${
               activeSection === 'mural'
                 ? 'bg-orange-400 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
-            🖼️
+            <ImageIcon className="w-4 h-4" />
+            Mural
           </button>
           <button
             onClick={() => goToSection('calendar')}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+            className={`px-4 py-2 rounded-full text-sm font-medium transition flex items-center gap-2 ${
               activeSection === 'calendar'
                 ? 'bg-orange-400 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
-            📅
+            <Calendar className="w-4 h-4" />
+            Calendário
           </button>
         </div>
 
