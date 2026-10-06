@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { ClipboardList, BarChart3 } from 'lucide-react'
 import { PageHeader, Button } from '@/components/ui'
 import { TaskList } from '@/components/tasks'
 import Link from 'next/link'
@@ -86,7 +87,12 @@ export default function TarefasPage() {
     <div className="space-y-8">
       {/* Header */}
       <PageHeader
-        title="📝 Tarefas"
+        title={
+          <div className="flex items-center gap-2">
+            <ClipboardList className="w-6 h-6" />
+            Tarefas
+          </div>
+        }
         description="Organize suas tarefas e acompanhe seu progresso"
       />
 
@@ -124,8 +130,9 @@ export default function TarefasPage() {
         </div>
 
         <Link href="/dashboard">
-          <Button variant="ghost" size="sm">
-            📊 Dashboard
+          <Button variant="ghost" size="sm" className="flex items-center gap-2">
+            <BarChart3 className="w-4 h-4" />
+            Dashboard
           </Button>
         </Link>
       </div>
