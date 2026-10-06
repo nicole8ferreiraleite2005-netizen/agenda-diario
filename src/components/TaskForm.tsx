@@ -66,31 +66,31 @@ export function TaskForm({ initialDate, onSubmit, onCancel, editing }: TaskFormP
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-6">
-      <div className="flex items-center gap-2 mb-4">
+    <form onSubmit={handleSubmit} className="bg-white rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-6">
+      <div className="flex items-center gap-2 mb-3 sm:mb-4">
         {editing ? (
           <>
-            <Edit className="w-5 h-5 text-blue-600" />
-            <h2 className="text-xl font-bold text-gray-900">Editar Tarefa</h2>
+            <Edit className="w-4 sm:w-5 h-4 sm:h-5 text-blue-600 flex-shrink-0" />
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900">Editar Tarefa</h2>
           </>
         ) : (
           <>
-            <Plus className="w-5 h-5 text-green-600" />
-            <h2 className="text-xl font-bold text-gray-900">Nova Tarefa</h2>
+            <Plus className="w-4 sm:w-5 h-4 sm:h-5 text-green-600 flex-shrink-0" />
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900">Nova Tarefa</h2>
           </>
         )}
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         <div>
-          <label htmlFor="task-title" className="block text-sm font-medium text-gray-700 mb-2">Título *</label>
+          <label htmlFor="task-title" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">Título *</label>
           <input
             id="task-title"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="O que você precisa fazer?"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            className="w-full px-3 sm:px-4 py-2 sm:py-2.5 min-h-[44px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm sm:text-base"
             aria-required="true"
             aria-label="Título da tarefa"
           />
