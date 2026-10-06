@@ -1,4 +1,4 @@
-import React from 'react'
+import Image from 'next/image'
 
 interface OptimizedImageProps {
   src: string
@@ -19,17 +19,37 @@ export function OptimizedImage({
   priority = false,
   objectFit = 'cover',
 }: OptimizedImageProps) {
+  const isExternal = src.startsWith('http')
+
+  if (isExternal) {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        loading={priority ? 'eager' : 'lazy'}
+        className={className}
+        style={{
+          objectFit,
+          width: '100%',
+          height: 'auto',
+          aspectRatio: `${width} / ${height}`,
+        }}
+      />
+    )
+  }
+
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
-      loading={priority ? 'eager' : 'lazy'}
-      className={`${className}`}
+      width={width}
+      height={height}
+      priority={priority}
+      className={className}
       style={{
         objectFit,
         width: '100%',
         height: 'auto',
-        aspectRatio: `${width} / ${height}`,
       }}
     />
   )
